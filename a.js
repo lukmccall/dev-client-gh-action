@@ -1150,7 +1150,11 @@ async function run() {
         core_1.error(output.stderr);
         return;
     }
+    core_1.info('info');
+    core_1.debug('debug');
     core_1.debug(output.stdout);
+    core_1.info(output.stdout);
+    core_1.error(output.stdout);
 }
 exports.run = run;
 
