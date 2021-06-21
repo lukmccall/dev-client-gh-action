@@ -1151,8 +1151,8 @@ async function run() {
         core_1.info(`QR Code is available under: ${qrCode}`);
         return Promise.resolve([url_1.parseManifestURL, qrCode]);
     });
-    core_1.setOutput('EXPO_MANIFEST_URL', parsedManifestURL);
-    core_1.setOutput('EXPO_QR_CODE_URL', QRCodeURL);
+    // setOutput('EXPO_MANIFEST_URL', parsedManifestURL);
+    // setOutput('EXPO_QR_CODE_URL', QRCodeURL);
 }
 exports.run = run;
 
