@@ -7,7 +7,7 @@ branding:
   color: gray-dark
 runs:
   using: node12
-  main: expo-preview-action/build/index.js
+  main: ./expo-preview-action/build/index.js
 inputs:
   channel:
     description: Channel name
