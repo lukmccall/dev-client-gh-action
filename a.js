@@ -1910,12 +1910,15 @@ async function chooseScheme(config) {
 exports.chooseScheme = chooseScheme;
 async function discoverSchemes(config) {
     try {
+        const r = path.resolve(config.manifestPath);
+        core_1.warning(`dirname: ${__dirname}`);
+        core_1.warning(`Path: ${r}`);
         const basicOptions = {
             projectRoot: config.projectRoot || '.',
         };
         const androidSchemes = await uri_scheme_1.Android.getAsync({
             ...basicOptions,
-            manifestPath: path.resolve(config.manifestPath),
+            manifestPath: r,
         });
         const iOSSchemes = await uri_scheme_1.Ios.getAsync({ ...basicOptions, infoPath: config.infoPlist });
         const commonSchemes = androidSchemes.filter(x => iOSSchemes.includes(x));
