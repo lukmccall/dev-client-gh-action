@@ -1146,7 +1146,7 @@ async function run() {
         cliPath: core_1.getInput('expo-cli-path') || 'expo',
     };
     const output = await cli.getExecOutput(`${config.cliPath} publish --release-channel=${config.channel}`);
-    if (!output.exitCode) {
+    if (output.exitCode !== 0) {
         core_1.error(output.stderr);
         return;
     }
