@@ -1145,14 +1145,14 @@ async function run() {
         core_1.info(`Chosen scheme: ${scheme}`);
         return scheme;
     });
-    const [parsedManifestURL, QRCodeURL] = await core_1.group('Create QRCode', () => {
+    const { parsedManifestURL, QRCodeURL } = await core_1.group('Create QRCode', () => {
         const parsedManifestURL = url_1.parseManifestURL(manifestURL);
-        const qrCode = url_1.createQRCodeURL(parsedManifestURL, scheme);
-        core_1.info(`QR Code is available under: ${qrCode}`);
-        return Promise.resolve([url_1.parseManifestURL, qrCode]);
+        const QRCodeURL = url_1.createQRCodeURL(parsedManifestURL, scheme);
+        core_1.info(`QR Code is available under: ${QRCodeURL}`);
+        return Promise.resolve({ parsedManifestURL, QRCodeURL });
     });
-    // setOutput('EXPO_MANIFEST_URL', parsedManifestURL);
-    // setOutput('EXPO_QR_CODE_URL', QRCodeURL);
+    core_1.setOutput('EXPO_MANIFEST_URL', parsedManifestURL);
+    core_1.setOutput('EXPO_QR_CODE_URL', QRCodeURL);
 }
 exports.run = run;
 
