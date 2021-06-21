@@ -24,7 +24,6 @@ jobs:
         uses: ./
         with:
           channel: pr-${{ github.event.number }}
-          project-root: /home/runner/work/dev-client-gh-action/dev-client-gh-action
         id: publish
       - name: Comment deployment link
         uses: unsplash/comment-on-pr@master
