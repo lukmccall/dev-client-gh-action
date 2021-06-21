@@ -1878,6 +1878,7 @@ module.exports = require("fs");
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.discoverSchemes = exports.chooseScheme = void 0;
+const core_1 = __webpack_require__(470);
 const uri_scheme_1 = __webpack_require__(861);
 async function chooseScheme(config) {
     if (config.scheme) {
@@ -1898,6 +1899,7 @@ async function discoverSchemes(config) {
         return commonSchemes;
     }
     catch (exception) {
+        core_1.warning(exception);
         // We cannot find common schemes. So we return empty array
         return [];
     }
