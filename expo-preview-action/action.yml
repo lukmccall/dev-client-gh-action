@@ -1,0 +1,37 @@
+---
+name: Expo GitHub Action
+author: Expo
+description: Expo CLI in your GitHub Actions workflow.
+branding:
+  icon: terminal
+  color: gray-dark
+runs:
+  using: node12
+  main: build/index.js
+inputs:
+  channel:
+    description: Channel name
+    required: true
+  expo-cli-path:
+    description: Path to expo-cli
+    required: false
+#   expo-version:
+#     description: The Expo CLI version to install. (use any semver/dist-tag available)
+#     default: latest
+#   expo-username:
+#     description: Your Expo username, for authentication.
+#   expo-token:
+#     description: Your Expo token, for authentication. (use with secrets)
+#   expo-password:
+#     description: Your Expo password, for authentication. (use with secrets)
+#   expo-packager:
+#     description: The package manager used to install the Expo CLI. (can be yarn or npm)
+#     default: yarn
+#   expo-patch-watchers:
+#     description: If Expo should fix the default watchers limit, helps with ENOSPC errors. (can be true or false)
+#     default: true
+#   expo-cache:
+#     description: If Expo should be stored in the GitHub Actions cache (can be true or false)
+#     default: false
+#   expo-cache-key:
+#     description: A custom remote cache key to use (best to let GitHub Actions handle it)
