@@ -1145,12 +1145,12 @@ async function run() {
         channel: core_1.getInput('channel'),
         cliPath: core_1.getInput('expo-cli-path') || 'expo',
     };
-    console.log('Cos');
-    const output = await cli.getExecOutput(`${config.cliPath} publish --release-channel=${config}`);
+    const output = await cli.getExecOutput(`${config.cliPath} publish --release-channel=${config.channel}`);
     if (!output.exitCode) {
         core_1.error(output.stderr);
         return;
     }
+    await cli.exec(`echo ${output.stdout}`);
     core_1.info(output.stdout);
 }
 exports.run = run;
