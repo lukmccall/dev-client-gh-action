@@ -24,6 +24,7 @@ jobs:
         uses: ./
         with:
           channel: pr-${{ github.event.number }}
+          android-manifest-path: android/app/src/main/AndroidManifest.xml
         id: publish
       - name: Comment deployment link
         uses: unsplash/comment-on-pr@master
