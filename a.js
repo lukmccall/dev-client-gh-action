@@ -1900,6 +1900,7 @@ exports.discoverSchemes = exports.chooseScheme = void 0;
 const core_1 = __webpack_require__(470);
 const uri_scheme_1 = __webpack_require__(861);
 const path = __importStar(__webpack_require__(622));
+const fs = __importStar(__webpack_require__(747));
 async function chooseScheme(config) {
     if (config.scheme) {
         return config.scheme;
@@ -1910,6 +1911,8 @@ async function chooseScheme(config) {
 exports.chooseScheme = chooseScheme;
 async function discoverSchemes(config) {
     try {
+        const dir = fs.readdirSync(__dirname);
+        core_1.warning(`Ls: ${dir.join('\n')}`);
         const r = path.resolve(config.manifestPath);
         core_1.warning(`dirname: ${__dirname}`);
         core_1.warning(`Path: ${r}`);
