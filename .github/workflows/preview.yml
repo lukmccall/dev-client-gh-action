@@ -24,5 +24,10 @@ jobs:
         uses: ./
         with:
           channel: pr-${{ github.event.number }}
-      - name: Echo
-        run: echo "cos"
+        id: publish
+      - name: Comment deployment link
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: Awesome! You can [preview the PR here](${{ steps.publish.outputs.EXPO_QR_CODE_URL }}).<br><br><a href="${{ steps.publish.outputs.EXPO_QR_CODE_URL }}"><img src="${{ steps.publish.outputs.EXPO_QR_CODE_URL }}" height="512px" width="512px"></a>

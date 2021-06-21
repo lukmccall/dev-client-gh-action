@@ -6,7 +6,7 @@ branding:
   icon: terminal
   color: gray-dark
 runs:
-  using: node12
+  using: node14
   main: a.js
 inputs:
   channel:
@@ -15,7 +15,9 @@ inputs:
   expo-cli-path:
     description: Path to expo-cli
     required: false
-#   expo-version:
+  scheme:
+    description: Deep link scheme
+    required: false
 #     description: The Expo CLI version to install. (use any semver/dist-tag available)
 #     default: latest
 #   expo-username:

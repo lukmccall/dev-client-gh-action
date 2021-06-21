@@ -1117,44 +1117,22 @@ module.exports = require("child_process");
 
 "use strict";
 
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = void 0;
-const cli = __importStar(__webpack_require__(986));
 const core_1 = __webpack_require__(470);
+const publish_1 = __webpack_require__(446);
 async function run() {
     const config = {
         channel: core_1.getInput('channel'),
         cliPath: core_1.getInput('expo-cli-path') || 'expo',
+        scheme: core_1.getInput('scheme'),
     };
-    const output = await cli.getExecOutput(`${config.cliPath} publish --release-channel=${config.channel}`);
-    if (output.exitCode !== 0) {
-        core_1.error(output.stderr);
-        return;
-    }
-    core_1.info('info');
-    core_1.debug('debug');
-    core_1.debug(output.stdout);
-    core_1.info(output.stdout);
-    core_1.error(output.stdout);
+    const manifestURL = await core_1.group('Publish application', () => publish_1.publish(config));
+    // Remove exp scheme from link
+    const parsedManifestURL = manifestURL.replace(/(^\w+:|^)\/\//, `https:`);
+    const QRCodeURL = `https://us-central1-exponentjs.cloudfunctions.net/generateQRCode/development-client?appScheme=${config.scheme || 'exp'}&url=${parsedManifestURL}`;
+    core_1.setOutput('EXPO_MANIFEST_URL', parsedManifestURL);
+    core_1.setOutput('EXPO_QR_CODE_URL', QRCodeURL);
 }
 exports.run = run;
 
@@ -1290,6 +1268,35 @@ function escapeProperty(s) {
         .replace(/,/g, '%2C');
 }
 //# sourceMappingURL=command.js.map
+
+/***/ }),
+
+/***/ 446:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.publish = exports.findManifestUrl = void 0;
+const exec_1 = __webpack_require__(986);
+function findManifestUrl(text) {
+    const regex = /📝  Manifest: ([^ ]*)/;
+    const match = (text.match(regex) || [])[1];
+    if (!match) {
+        throw new Error("Couldn't extract manifest URL.");
+    }
+    return match;
+}
+exports.findManifestUrl = findManifestUrl;
+async function publish(config) {
+    const { exitCode, stderr, stdout } = await exec_1.getExecOutput(`${config.cliPath} publish --release-channel=${config.channel}`);
+    if (exitCode !== 0) {
+        throw new Error(stderr);
+    }
+    return findManifestUrl(stdout);
+}
+exports.publish = publish;
+
 
 /***/ }),
 
