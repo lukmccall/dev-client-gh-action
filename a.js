@@ -1140,7 +1140,11 @@ async function run() {
         infoPlist: core_1.getInput('ios-info-plist-path'),
     };
     const manifestURL = await core_1.group('Publish application', () => publish_1.publish(config));
-    const scheme = await core_1.group('Choose scheme', () => scheme_1.chooseScheme(config));
+    const scheme = await core_1.group('Choose scheme', async () => {
+        const scheme = await scheme_1.chooseScheme(config);
+        core_1.info(`Chosen scheme: ${scheme}`);
+        return scheme;
+    });
     const [parsedManifestURL, QRCodeURL] = await core_1.group('Create QRCode', () => {
         const parsedManifestURL = url_1.parseManifestURL(manifestURL);
         const qrCode = url_1.createQRCodeURL(parsedManifestURL, scheme);
@@ -1189,8 +1193,11 @@ module.exports = require("string_decoder");
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+const core_1 = __webpack_require__(470);
 const run_1 = __webpack_require__(180);
-run_1.run();
+run_1.run().catch(error => {
+    core_1.setFailed(error);
+});
 
 
 /***/ }),
