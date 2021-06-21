@@ -18,6 +18,15 @@ inputs:
   scheme:
     description: Deep link scheme
     required: false
+  project-root:
+    description: Path to js project
+    required: false
+  android-manifest-path:
+    description: Path to AndroidManifest.xml
+    required: false
+  ios-info-plist-path:
+    description: Path to Info.plist
+    required: false
 #     description: The Expo CLI version to install. (use any semver/dist-tag available)
 #     default: latest
 #   expo-username:
