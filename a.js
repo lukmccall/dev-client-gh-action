@@ -1876,10 +1876,30 @@ module.exports = require("fs");
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.discoverSchemes = exports.chooseScheme = void 0;
 const core_1 = __webpack_require__(470);
 const uri_scheme_1 = __webpack_require__(861);
+const path = __importStar(__webpack_require__(622));
 async function chooseScheme(config) {
     if (config.scheme) {
         return config.scheme;
@@ -1893,7 +1913,10 @@ async function discoverSchemes(config) {
         const basicOptions = {
             projectRoot: config.projectRoot || '.',
         };
-        const androidSchemes = await uri_scheme_1.Android.getAsync({ ...basicOptions, manifestPath: config.manifestPath });
+        const androidSchemes = await uri_scheme_1.Android.getAsync({
+            ...basicOptions,
+            manifestPath: path.resolve(config.manifestPath),
+        });
         const iOSSchemes = await uri_scheme_1.Ios.getAsync({ ...basicOptions, infoPath: config.infoPlist });
         const commonSchemes = androidSchemes.filter(x => iOSSchemes.includes(x));
         return commonSchemes;
