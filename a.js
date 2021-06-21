@@ -1150,8 +1150,7 @@ async function run() {
         core_1.error(output.stderr);
         return;
     }
-    await cli.exec(`echo ${output.stdout}`);
-    core_1.info(output.stdout);
+    core_1.debug(output.stdout);
 }
 exports.run = run;
 
