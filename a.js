@@ -1198,9 +1198,6 @@ module.exports = require("string_decoder");
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = __webpack_require__(470);
 const run_1 = __webpack_require__(180);
-// chooseScheme({ channel: 'channel', cliPath: 'expo' }).then(data => {
-// 	warning(data);
-// });
 run_1.run().catch(error => {
     core_1.setFailed(error);
 });
@@ -1890,8 +1887,10 @@ async function chooseScheme(config) {
     if (config.scheme) {
         return config.scheme;
     }
+    core_1.info('Trying to guess scheme...');
     const commonSchemes = await discoverSchemes(config);
-    core_1.info(`common: ${commonSchemes.join('\n')}`);
+    core_1.info(`Common schemes:
+\t${commonSchemes.join('\n\t')}`);
     return commonSchemes[0] || 'exp';
 }
 exports.chooseScheme = chooseScheme;
@@ -1900,8 +1899,6 @@ async function discoverSchemes(config) {
         const basicOptions = {
             projectRoot: config.projectRoot || '.',
         };
-        core_1.info(`root: ${basicOptions.projectRoot}`);
-        core_1.info(`manifest: ${config.manifestPath}`);
         const iOSSchemes = await uri_scheme_1.Ios.getAsync({ ...basicOptions, infoPath: config.infoPlist });
         const androidSchemes = await uri_scheme_1.Android.getAsync({
             ...basicOptions,
