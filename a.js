@@ -146,46 +146,6 @@ module.exports = require("child_process");
 
 /***/ }),
 
-/***/ 180:
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.run = void 0;
-const core_1 = __webpack_require__(470);
-const scheme_1 = __webpack_require__(768);
-async function run() {
-    const config = {
-        channel: core_1.getInput('channel'),
-        cliPath: core_1.getInput('expo-cli-path') || 'expo',
-        scheme: core_1.getInput('scheme'),
-        projectRoot: core_1.getInput('project-root'),
-        manifestPath: core_1.getInput('android-manifest-path'),
-        infoPlist: core_1.getInput('ios-info-plist-path'),
-    };
-    const scheme = await scheme_1.chooseScheme(config);
-    core_1.info(`Chosen scheme: ${scheme}`);
-    // const scheme = await group('Choose scheme', async () => {
-    // 	const scheme = await chooseScheme(config);
-    // 	info(`Chosen scheme: ${scheme}`);
-    // 	return scheme;
-    // });
-    // const manifestURL = await group('Publish application', () => publish(config));
-    // const { parsedManifestURL, QRCodeURL } = await group('Create QRCode', () => {
-    // 	const parsedManifestURL = parseManifestURL(manifestURL);
-    // 	const QRCodeURL = createQRCodeURL(parsedManifestURL, scheme);
-    // 	info(`QR Code is available under: ${QRCodeURL}`);
-    // 	return Promise.resolve({ parsedManifestURL, QRCodeURL });
-    // });
-    // setOutput('EXPO_MANIFEST_URL', parsedManifestURL);
-    // setOutput('EXPO_QR_CODE_URL', QRCodeURL);
-}
-exports.run = run;
-
-
-/***/ }),
-
 /***/ 211:
 /***/ (function(module) {
 
@@ -220,11 +180,14 @@ module.exports = require("string_decoder");
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+const scheme_1 = __webpack_require__(768);
 const core_1 = __webpack_require__(470);
-const run_1 = __webpack_require__(180);
-run_1.run().catch(error => {
-    core_1.setFailed(error);
+scheme_1.chooseScheme({ channel: 'channel', cliPath: 'expo' }).then(data => {
+    core_1.warning(data);
 });
+// run().catch(error => {
+// 	setFailed(error);
+// });
 
 
 /***/ }),
