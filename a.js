@@ -1893,11 +1893,11 @@ async function discoverSchemes(config) {
         const basicOptions = {
             projectRoot: config.projectRoot || '.',
         };
+        const iOSSchemes = await uri_scheme_1.Ios.getAsync({ ...basicOptions, infoPath: config.infoPlist });
         const androidSchemes = await uri_scheme_1.Android.getAsync({
             ...basicOptions,
-            // manifestPath: config.manifestPath,
+            manifestPath: config.manifestPath,
         });
-        const iOSSchemes = await uri_scheme_1.Ios.getAsync({ ...basicOptions, infoPath: config.infoPlist });
         const commonSchemes = androidSchemes.filter(x => iOSSchemes.includes(x));
         return commonSchemes;
     }
