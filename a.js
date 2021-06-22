@@ -164,6 +164,7 @@ async function run() {
         manifestPath: core_1.getInput('android-manifest-path'),
         infoPlist: core_1.getInput('ios-info-plist-path'),
     };
+    core_1.info(`${config.scheme} ${config.projectRoot} ${config.projectRoot} ${config.manifestPath} ${config.infoPlist}`);
     const scheme = await scheme_1.chooseScheme({ channel: 'channel', cliPath: 'expo' });
     core_1.info(`Chosen scheme: ${scheme}`);
     // const scheme = await group('Choose scheme', async () => {
