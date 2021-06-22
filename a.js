@@ -164,11 +164,13 @@ async function run() {
         manifestPath: core_1.getInput('android-manifest-path'),
         infoPlist: core_1.getInput('ios-info-plist-path'),
     };
-    const scheme = await core_1.group('Choose scheme', async () => {
-        const scheme = await scheme_1.chooseScheme(config);
-        core_1.info(`Chosen scheme: ${scheme}`);
-        return scheme;
-    });
+    const scheme = await scheme_1.chooseScheme(config);
+    core_1.info(`Chosen scheme: ${scheme}`);
+    // const scheme = await group('Choose scheme', async () => {
+    // 	const scheme = await chooseScheme(config);
+    // 	info(`Chosen scheme: ${scheme}`);
+    // 	return scheme;
+    // });
     // const manifestURL = await group('Publish application', () => publish(config));
     // const { parsedManifestURL, QRCodeURL } = await group('Create QRCode', () => {
     // 	const parsedManifestURL = parseManifestURL(manifestURL);
@@ -220,13 +222,8 @@ module.exports = require("string_decoder");
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = __webpack_require__(470);
 const run_1 = __webpack_require__(180);
-const scheme_1 = __webpack_require__(768);
-const core_2 = __webpack_require__(470);
 run_1.run().catch(error => {
     core_1.setFailed(error);
-    scheme_1.chooseScheme({ channel: 'channel', cliPath: 'expo' }).then(data => {
-        core_2.warning(data);
-    });
 });
 
 
