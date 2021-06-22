@@ -1148,13 +1148,12 @@ async function run() {
         return scheme;
     });
     const manifestURL = await core_1.group('Publish application', () => publish_1.publish(config));
-    const { parsedManifestURL, QRCodeURL } = await core_1.group('Create QRCode', () => {
-        const parsedManifestURL = url_1.parseManifestURL(manifestURL);
-        const QRCodeURL = url_1.createQRCodeURL(parsedManifestURL, scheme);
-        core_1.info(`QR Code is available under: ${QRCodeURL}`);
-        return Promise.resolve({ parsedManifestURL, QRCodeURL });
+    const QRCodeURL = await core_1.group('Create QRCode', () => {
+        const qrCode = url_1.createQRCodeURL(manifestURL, scheme);
+        core_1.info(`QR Code is available under: ${qrCode}`);
+        return Promise.resolve(qrCode);
     });
-    core_1.setOutput('EXPO_MANIFEST_URL', parsedManifestURL);
+    core_1.setOutput('EXPO_MANIFEST_URL', manifestURL);
     core_1.setOutput('EXPO_QR_CODE_URL', QRCodeURL);
 }
 exports.run = run;
@@ -1945,12 +1944,7 @@ module.exports = require("tty");
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createQRCodeURL = exports.parseManifestURL = void 0;
-function parseManifestURL(manifestURL) {
-    // We need to remove exp scheme from link.
-    return manifestURL.replace(/(^\w+:|^)\/\//, `https:`);
-}
-exports.parseManifestURL = parseManifestURL;
+exports.createQRCodeURL = void 0;
 function createQRCodeURL(manifestURL, scheme) {
     return `https://us-central1-exponentjs.cloudfunctions.net/generateQRCode/development-client?appScheme=${scheme}&url=${manifestURL}`;
 }
