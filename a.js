@@ -1139,12 +1139,12 @@ async function run() {
         manifestPath: core_1.getInput('android-manifest-path'),
         infoPlist: core_1.getInput('ios-info-plist-path'),
     };
-    const manifestURL = await core_1.group('Publish application', () => publish_1.publish(config));
     const scheme = await core_1.group('Choose scheme', async () => {
         const scheme = await scheme_1.chooseScheme(config);
         core_1.info(`Chosen scheme: ${scheme}`);
         return scheme;
     });
+    const manifestURL = await core_1.group('Publish application', () => publish_1.publish(config));
     const { parsedManifestURL, QRCodeURL } = await core_1.group('Create QRCode', () => {
         const parsedManifestURL = url_1.parseManifestURL(manifestURL);
         const QRCodeURL = url_1.createQRCodeURL(parsedManifestURL, scheme);
