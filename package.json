@@ -6,7 +6,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "change": "change",
+    "change": "change"
   },
   "jest": {
     "preset": "jest-expo"
