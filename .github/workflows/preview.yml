@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Publish to Expo
-        uses: expo/expo-preview-action@@lukmccall/add-new-build-is-requier-warning
+        uses: expo/expo-preview-action@0a9e149db24e1366f86b9c3c71d3c663a2d8141a
         with:
           channel: pr-${{ github.event.number }}
         id: publish
