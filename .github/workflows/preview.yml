@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Publish to Expo
-        uses: expo/expo-preview-action@cb4b26bea7c803a736f9f22674a90a360c7de04c
+        uses: expo/expo-preview-action@d392887f8139d33ea40b300465af7af5634686fd
         with:
           channel: pr-${{ github.event.number }}
         id: publish
