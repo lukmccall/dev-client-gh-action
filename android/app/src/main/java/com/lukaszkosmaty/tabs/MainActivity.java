@@ -1,3 +1,4 @@
+// native change
 package com.lukaszkosmaty.tabs;
 import expo.modules.devmenu.react.DevMenuAwareReactActivity;
 import expo.modules.devlauncher.DevLauncherController;
