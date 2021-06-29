@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Publish to Expo
-        uses: expo/expo-preview-action@v1
+        uses: expo/expo-preview-action@@lukmccall/add-new-build-is-requier-warning
         with:
           channel: pr-${{ github.event.number }}
         id: publish
@@ -30,4 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          msg: Awesome! You can [preview the PR here](${{ steps.publish.outputs.EXPO_QR_CODE_URL }}).<br><br><a href="${{ steps.publish.outputs.EXPO_QR_CODE_URL }}"><img src="${{ steps.publish.outputs.EXPO_QR_CODE_URL }}" height="512px" width="512px"></a>
+          msg: >
+            Awesome! You can [preview the PR here](${{ steps.publish.outputs.EXPO_QR_CODE_URL }}).
+            <br/><a href="${{ steps.publish.outputs.EXPO_QR_CODE_URL }}"><img src="${{ steps.publish.outputs.EXPO_QR_CODE_URL }}" height="512px" width="512px"></a>
+            ${{ steps.publish.outputs.EXPO_NEW_BUILD_IS_REQUIRED_MESSAGE }}
